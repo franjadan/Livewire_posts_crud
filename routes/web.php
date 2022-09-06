@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 
+//Importar componentes
+Use App\Http\Livewire\ShowPosts;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,6 +20,26 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+/*
+Route::group(['middleware' => ['auth']], function() {
+    Route::get('/dashboard', function(){
+        return view('dashboard');
+    });
+});
+*/
+
+//Llamar al controlador de livewire directamente desde
+/*
+Route::group(['middleware' => ['auth']], function() {
+    Route::get('/dashboard', ShowPosts::class);
+});*/
+
+//Route::get('prueba/{name}', ShowPosts::class);
+
+Route::group(['middleware' => ['auth']], function() {
+    Route::get('/dashboard', ShowPosts::class);
+});
+
+
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
