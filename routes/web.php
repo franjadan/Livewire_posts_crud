@@ -17,7 +17,7 @@ Use App\Http\Livewire\ShowPosts;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    redirect()->route('dashboard');
 });
 
 /*
@@ -37,7 +37,7 @@ Route::group(['middleware' => ['auth']], function() {
 //Route::get('prueba/{name}', ShowPosts::class);
 
 Route::group(['middleware' => ['auth']], function() {
-    Route::get('/dashboard', ShowPosts::class);
+    Route::get('/dashboard', ShowPosts::class)->name('dashboard');
 });
 
 

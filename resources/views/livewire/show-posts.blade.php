@@ -11,9 +11,42 @@
                     <table class="table table-striped">
                         <thead>
                         <tr>
-                            <th scope="col">ID</th>
-                            <th scope="col">Title</th>
-                            <th scope="col">Content</th>
+                            <th scope="col" class="cursor-pointer text-nowrap" wire:click="order('id')">ID
+                                <!--Sort-->
+                                @if($sort == 'id')
+                                    @if($direction == 'asc')
+                                        <i class="fas fa-sort-up mt-1" style="float: right"></i>
+                                    @else
+                                        <i class="fas fa-sort-down mt-1" style="float: right"></i>
+                                    @endif
+                                @else
+                                    <i class="fas fa-sort mt-1" style="float: right"></i>
+                                @endif
+                            </th>
+                            <th scope="col" class="cursor-pointer" wire:click="order('title')">Title
+                                <!--Sort-->
+                                @if($sort == 'title')
+                                    @if($direction == 'asc')
+                                        <i class="fas fa-sort-up mt-1" style="float: right"></i>
+                                    @else
+                                        <i class="fas fa-sort-down mt-1" style="float: right"></i>
+                                    @endif
+                                @else
+                                    <i class="fas fa-sort mt-1" style="float: right"></i>
+                                @endif
+                            </th>
+                            <th scope="col" class="cursor-pointer" wire:click="order('content')">Content
+                                <!--Sort-->
+                                @if($sort == 'content')
+                                    @if($direction == 'asc')
+                                        <i class="fas fa-sort-up mt-1" style="float: right"></i>
+                                    @else
+                                        <i class="fas fa-sort-down mt-1" style="float: right"></i>
+                                    @endif
+                                @else
+                                    <i class="fas fa-sort mt-1" style="float: right"></i>
+                                @endif
+                            </th>
                             <th scope="col"></th>
                         </tr>
                         </thead>
