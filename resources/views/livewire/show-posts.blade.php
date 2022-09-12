@@ -1,8 +1,15 @@
 <div>
     <h1>Posts</h1>
     <x-card>
-        <div class="form-group row">
-            <input type="text" placeholder="Escriba que quiere buscar" class="form-control" wire:model="search">
+
+        <div class="d-flex justify-content-between">
+            <div class="form-group col-md-6">
+                <input type="text" placeholder="Escriba que quiere buscar" class="form-control" wire:model="search">
+            </div>
+
+            <div>
+                @livewire('create-post')
+            </div>
         </div>
 
         @if($posts->count())

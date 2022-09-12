@@ -10,16 +10,15 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="https://code.jquery.com/jquery-3.6.1.slim.min.js" integrity="sha256-w8CvhFs7iHNVUtnSP0YKEg00p9Ih13rlL9zGqvLdePA=" crossorigin="anonymous"></script>
+    <script src="{{ asset('js/app.js') }}"></script>
+    <!-- Fontawesome -->
     <script src="https://kit.fontawesome.com/58528046ad.js" crossorigin="anonymous"></script>
-
-    <!-- Fonts -->
-    <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+    <!-- Sweetalert -->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-
     @livewireStyles
 </head>
 <body>
@@ -85,5 +84,14 @@
         </main>
     </div>
     @livewireScripts
+    <script>
+        Livewire.on('alert', function($message){
+            Swal.fire(
+                'Good job!',
+                $message,
+                'success'
+            );
+        });
+    </script>
 </body>
 </html>

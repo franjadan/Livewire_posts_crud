@@ -12,6 +12,12 @@ class ShowPosts extends Component
     public $sort = 'id';
     public $direction = 'desc';
 
+    //Eventos que está escuchando
+    protected $listeners = [
+        //'render' => 'render' //Cuando escuche el evento render ejecuta la función render
+        'render' //Si el evento y el método tiene el mismo nombre se puede poner solo una vez
+    ];
+
     public function render()
     {
 

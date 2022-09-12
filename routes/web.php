@@ -17,16 +17,16 @@ Use App\Http\Livewire\ShowPosts;
 */
 
 Route::get('/', function () {
-    redirect()->route('dashboard');
+    return redirect()->route('dashboard');
 });
 
-/*
+
 Route::group(['middleware' => ['auth']], function() {
-    Route::get('/dashboard', function(){
-        return view('dashboard');
+    Route::get('/welcome', function(){
+        return view('welcome');
     });
 });
-*/
+
 
 //Llamar al controlador de livewire directamente desde
 /*
