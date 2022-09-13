@@ -9,12 +9,33 @@ class CreatePost extends Component
 {
     public $title, $content;
 
+    //Reglas de validación
+    protected $rules = [
+        'title' => ['required', 'max:10'],
+        'content' => ['required', 'min:100'],
+    ];
+
+    protected $validationAttributes = [
+        'title' => 'Título',
+        'content' => 'Contenido'
+    ];
+
+    //Este método se activa cuando se modifique cada propiedad (validación en caliente)
+    public function updated($propertyName){
+        //Solo valida la propiedad que se está editando
+        $this->validateOnly($propertyName);
+    }
+
     public function render()
     {
         return view('livewire.create-post');
     }
 
     public function save(){
+
+        //Verifica las reglas de validacion
+        $this->validate();
+
         Post::create([
             'title' => $this->title,
             'content' => $this->content,

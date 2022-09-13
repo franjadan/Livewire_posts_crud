@@ -11,11 +11,19 @@
             <div class="mb-4">
                 <div class="mb-3">
                     <label for="title">Título del post</label>
-                    <input type="text" class="form-control" id="title" wire:model.defer="title"> <!-- El .defer es par que no renderice la vista por cada letra, solo cuando desencadenemos una acción -->
+                    <input type="text" class="form-control" id="title" wire:model="title"> <!-- El .defer es par que no renderice la vista por cada letra, solo cuando desencadenemos una acción --> <!-- Quitar .defer para validación en caliente -->
+
+                    @error('title')
+                    <p class="text-danger"><small>{{ $message }}</small></p>
+                    @enderror
                 </div>
                 <div class="mb-3">
                     <label for="content">Contenido del post</label>
-                    <textarea wire:model.defer="content" class="form-control" id="content" cols="30" rows="10"></textarea>
+                    <textarea wire:model="content" class="form-control" id="content" cols="30" rows="10"></textarea>
+
+                    @error('content')
+                        <p class="text-danger"><small>{{ $message }}</small></p>
+                    @enderror
                 </div>
             </div>
         </x-slot>
