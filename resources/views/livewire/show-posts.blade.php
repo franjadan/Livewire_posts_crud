@@ -30,6 +30,7 @@
                                     <i class="fas fa-sort mt-1" style="float: right"></i>
                                 @endif
                             </th>
+                            <th scope="col">Image</th>
                             <th scope="col" class="cursor-pointer" wire:click="order('title')">Title
                                 <!--Sort-->
                                 @if($sort == 'title')
@@ -61,6 +62,7 @@
                         @foreach ($posts as $post)
                             <tr>
                                 <td>{{ $post->id}}</td>
+                                <td><img class="img-fluid" src="{{ url('storage/'.$post->image) }}" alt="" title="" /></td>
                                 <td>{{ $post->title}}</td>
                                 <td>{{ $post->content}}</td>
                                 <td>Edit</td>
