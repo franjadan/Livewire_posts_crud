@@ -30,7 +30,19 @@
 
         <x-slot name="footer">
             <button class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-            <button type="submit" class="btn btn-danger" wire:click="save">Crear post</button>
+            <!--<button type="submit" class="btn btn-danger" wire:click="save" wire:loading.remove>Crear post</button>-->
+            <!-- Mientras está ejecutando el método save desaparece el botón -->
+
+            <!-- Este mensaje se mostrará cuando esté cargando un proceso -->
+            <!-- El target es para que solo se muestre cuando se esté ejecutando save -->
+            <!-- wire:loading.flex para mostrarlo don display flex (también con grid, table, etc) -->
+            <!--<span wire:loading wire:target="save">Cargando...</span>-->
+
+            <!-- Cambia la clase mientras está cargando -->
+            <!--<button type="submit" class="btn btn-danger" wire:click="save" wire:loading.class="bg-primary">Crear post</button>-->
+
+            <!-- Mientras esté cargando de deshabilita el botón -->
+            <button type="submit" class="btn btn-danger" wire:click="save" wire:loading.attr="disabled">Crear post</button>
         </x-slot>
     </x-modal>
 
