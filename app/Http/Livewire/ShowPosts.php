@@ -47,7 +47,8 @@ class ShowPosts extends Component
     //Eventos que está escuchando
     protected $listeners = [
         //'render' => 'render' //Cuando escuche el evento render ejecuta la función render
-        'render' //Si el evento y el método tiene el mismo nombre se puede poner solo una vez
+        'render', //Si el evento y el método tiene el mismo nombre se puede poner solo una vez
+        'delete'
     ];
 
     public function updated($propertyName){
@@ -133,5 +134,9 @@ class ShowPosts extends Component
 
     public function loadPosts(){
         $this->readyToLoad = true;
+    }
+
+    public function delete(Post $post){
+        $post->delete();
     }
 }

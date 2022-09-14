@@ -144,7 +144,12 @@
                                 <td><img class="img-fluid" src="{{ Storage::url($item->image) }}" alt="" title="" /></td>
                                 <td>{{ $item->title}}</td>
                                 <td>{{ $item->content}}</td>
-                                <td><button type="button" wire:click="edit({{ $item }})" class="btn btn-primary"><i class="fas fa-edit"></i></button></td>
+                                <td>
+                                    <div class="d-flex">
+                                        <button type="button" wire:click="edit({{ $item }})" class="btn btn-primary"><i class="fas fa-edit"></i></button>
+                                        <button type="button" wire:click="$emit('deletePost', {{ $item->id }})" class="ms-2 btn btn-danger"><i class="fas fa-trash"></i></button>
+                                    </div>
+                                </td>
                             </tr>
                         @endforeach
                         </tbody>
@@ -166,8 +171,6 @@
 
 
     @push('js')
-        <script src="https://cdn.ckeditor.com/ckeditor5/35.0.1/classic/ckeditor.js"></script>
-
         <script>
             ClassicEditor
                 .create( document.querySelector('#editor' ) )
@@ -179,7 +182,33 @@
                 .catch( error => {
                     console.error( error );
                 } );
+
+                Livewire.on('deletePost', postId => {
+                    Swal.fire({
+                        title: 'Are you sure?',
+                        text: "You won't be able to revert this!",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Yes, delete it!'
+                    })
+                    .then((result) => {
+                        if (result.isConfirmed) {
+
+
+                            Livewire.emitTo('show-posts', 'delete', postId);
+
+                            Swal.fire(
+                            'Deleted!',
+                            'Your file has been deleted.',
+                            'success'
+                            )
+                        }
+                    });
+                });
         </script>
+
     @endpush
 
 </div>
