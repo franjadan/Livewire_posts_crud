@@ -92,6 +92,14 @@
                 'success'
             );
         });
+
+        Livewire.on('openModal', function($id){
+            $("#" + $id).modal('show');
+        });
+
+        Livewire.on('closeModal', function($id){
+            $("#" + $id).modal('hide');
+        });
     </script>
 </body>
 </html>

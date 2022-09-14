@@ -46,7 +46,7 @@
                     @enderror
                 </div>
                 <div class="mb-3">
-                    <input id={{ $identificador }} wire:loading.attr="disabled" wire:target="edit, image" type="file" wire:model="image">
+                    <input id={{ $identificador }} wire:loading.attr="disabled" wire:target="update, image" type="file" wire:model="image">
 
                     @error('image')
                         <p class="text-danger"><small>{{ $message }}</small></p>
@@ -127,7 +127,7 @@
                                 <td><img class="img-fluid" src="{{ Storage::url($item->image) }}" alt="" title="" /></td>
                                 <td>{{ $item->title}}</td>
                                 <td>{{ $item->content}}</td>
-                                <td><button type="button" wire:click="edit({{ $item }})" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editModal"><i class="fas fa-edit"></i></button></td>
+                                <td><button type="button" wire:click="edit({{ $item }})" class="btn btn-primary"><i class="fas fa-edit"></i></button></td>
                             </tr>
                         @endforeach
                         </tbody>

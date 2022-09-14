@@ -15,10 +15,4 @@
             </div>
         </div>
     </div>
-
-    <script>
-        window.addEventListener('closeModal', event=> {
-            $("#{{$id}}").modal('hide');
-        });
-    </script>
 </div>

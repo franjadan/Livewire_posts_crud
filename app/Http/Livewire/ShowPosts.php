@@ -72,6 +72,8 @@ class ShowPosts extends Component
 
     public function edit(Post $post){
         $this->post = $post;
+        //Abro el modal una vez cargado el post
+        $this->emit('openModal', 'editModal');
     }
 
     public function update(){
@@ -91,7 +93,7 @@ class ShowPosts extends Component
 
         $this->identificador = rand();
 
-        $this->dispatchBrowserEvent('closeModal');
+        $this->emit('closeModal', 'editModal');
 
         $this->emitTo('show-posts', 'render');
         $this->emit('alert', 'El post se actualizó correctamente');

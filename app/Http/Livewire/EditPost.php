@@ -58,7 +58,7 @@ class EditPost extends Component
 
         $this->identificador = rand();
 
-        $this->dispatchBrowserEvent('closeModal');
+        $this->emit('closeModal', 'editModal');
 
         $this->emitTo('show-posts', 'render');
         $this->emit('alert', 'El post se actualizó correctamente');

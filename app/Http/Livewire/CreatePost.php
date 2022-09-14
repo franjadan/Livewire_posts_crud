@@ -64,7 +64,7 @@ class CreatePost extends Component
         $this->identificador = rand();
 
         //Cierro el modal
-        $this->dispatchBrowserEvent('closeModal');
+        $this->emit('closeModal', 'createModal');
 
         //Emitir un evento (renderizar la vista)
         //$this->emit('render');
