@@ -21,6 +21,7 @@ class ShowPosts extends Component
     public $sort = 'id';
     public $direction = 'desc';
     public $cant = '10';
+    public $readyToLoad = false;
 
     //Estas propiedad se pasan por la url
     //Excepciones para que no aparezcan en la url si no cambia el valor por defecto
@@ -68,10 +69,21 @@ class ShowPosts extends Component
     public function render()
     {
 
+        /*
         $posts = Post::where('title', 'like', '%' . $this->search . '%')
-        ->orWhere('content', 'like', '%' . $this->search . '%')
-        ->orderBy($this->sort, $this->direction)
-        ->paginate($this->cant);
+            ->orWhere('content', 'like', '%' . $this->search . '%')
+            ->orderBy($this->sort, $this->direction)
+            ->paginate($this->cant);
+        */
+
+        if($this->readyToLoad){
+            $posts = Post::where('title', 'like', '%' . $this->search . '%')
+                ->orWhere('content', 'like', '%' . $this->search . '%')
+                ->orderBy($this->sort, $this->direction)
+                ->paginate($this->cant);
+        }else{
+            $posts = [];
+        }
 
         return view('livewire.show-posts', compact('posts'))->extends('layouts.app')->section('content'); //Tengo que poner la seccion donde va a ir el contenido ya que si lo pongo directamente en la plantilla del componente no funciona la reactividad
     }
@@ -117,5 +129,9 @@ class ShowPosts extends Component
 
         $this->emitTo('show-posts', 'render');
         $this->emit('alert', 'El post se actualizó correctamente');
+    }
+
+    public function loadPosts(){
+        $this->readyToLoad = true;
     }
 }

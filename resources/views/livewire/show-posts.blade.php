@@ -1,4 +1,4 @@
-<div>
+<div wire:init="loadPosts">
     <h1>Posts</h1>
 
     <!-- modal editar -->
@@ -84,7 +84,7 @@
             </div>
         </div>
 
-        @if($posts->count())
+        @if(count($posts))
             <div class="row my-3">
                 <div class="mt-2 table-responsive-md">
                     <table class="table table-striped">
@@ -144,15 +144,15 @@
                     </table>
                 </div>
             </div>
-        @else
-            <p>No existe ningún registro que coincida con su búsqueda.</p>
-        @endif
 
-        <!-- Si tiene al menos 2 páginas muestra el div -->
-        @if($posts->hasPages())
-            <div class="d-flex justify-content-end">
-                {{ $posts->links() }}
-            </div>
+            <!-- Si tiene al menos 2 páginas muestra el div -->
+            @if($posts->hasPages())
+                <div class="d-flex justify-content-end">
+                    {{ $posts->links() }}
+                </div>
+            @endif
+        @else
+            <p class="mt-3">No existe ningún registro que coincida con su búsqueda.</p>
         @endif
 
     </x-card>
