@@ -34,8 +34,10 @@
                     @enderror
                 </div>
                 <div class="mb-3">
-                    <label for="content">Contenido del post</label>
-                    <textarea wire:model="content" class="form-control" id="content" cols="30" rows="10"></textarea>
+                    <div wire:ignore>
+                        <label for="content">Contenido del post</label>
+                        <textarea wire:model="content" class="form-control" id="editor2" cols="30" rows="10"></textarea>
+                    </div>
 
                     @error('content')
                         <p class="text-danger"><small>{{ $message }}</small></p>
@@ -70,5 +72,22 @@
             <button type="submit" class="btn btn-danger" wire:click="save" wire:loading.attr="disabled">Crear post</button>
         </x-slot>
     </x-modal>
+
+    @push('js')
+    <script src="https://cdn.ckeditor.com/ckeditor5/35.0.1/classic/ckeditor.js"></script>
+
+        <script>
+            ClassicEditor
+                .create( document.querySelector( '#editor2' ) )
+                .then(function(editor){
+                    editor.model.document.on('change:data', () => {
+                        @this.set('content', editor.getData()); //Cada vez que modifiquemos el editor se modifica la propiedad content
+                    });
+                })
+                .catch( error => {
+                    console.error( error );
+                } );
+        </script>
+    @endpush
 
 </div>

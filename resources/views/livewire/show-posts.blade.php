@@ -38,8 +38,15 @@
                     @enderror
                 </div>
                 <div class="mb-3">
-                    <label for="content">Contenido del post</label>
-                    <textarea wire:model="post.content" class="form-control" id="content" cols="30" rows="10"></textarea>
+                    <div wire:ignore>
+                        <label for="content">Contenido del post</label>
+                        <textarea id="editor"
+                            wire:model="post.content"
+                            class="form-control"
+                            cols="30"
+                            rows="10">
+                            </textarea>
+                    </div>
 
                     @error('post.content')
                         <p class="text-danger"><small>{{ $message }}</small></p>
@@ -156,4 +163,23 @@
         @endif
 
     </x-card>
+
+
+    @push('js')
+        <script src="https://cdn.ckeditor.com/ckeditor5/35.0.1/classic/ckeditor.js"></script>
+
+        <script>
+            ClassicEditor
+                .create( document.querySelector('#editor' ) )
+                .then(function(editor){
+                    editor.model.document.on('change:data', () => {
+                        @this.set('post.content', editor.getData()); //Cada vez que modifiquemos el editor se modifica la propiedad content
+                    });
+                })
+                .catch( error => {
+                    console.error( error );
+                } );
+        </script>
+    @endpush
+
 </div>

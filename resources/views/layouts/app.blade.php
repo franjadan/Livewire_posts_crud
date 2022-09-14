@@ -20,6 +20,8 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     @livewireStyles
+    @stack('css')
+
     <style>
         .cursor-pointer{
             cursor:pointer !important;
@@ -90,6 +92,9 @@
         </main>
     </div>
     @livewireScripts
+
+    @stack('js');
+
     <script>
         Livewire.on('alert', function($message){
             Swal.fire(
