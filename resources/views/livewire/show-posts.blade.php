@@ -60,12 +60,12 @@
                         </thead>
                         <tbody>
                         @foreach ($posts as $post)
-                            <tr>
+                            <tr class="align-middle">
                                 <td>{{ $post->id}}</td>
-                                <td><img class="img-fluid" src="{{ url('storage/'.$post->image) }}" alt="" title="" /></td>
+                                <td><img class="img-fluid" src="{{ Storage::url($post->image) }}" alt="" title="" /></td>
                                 <td>{{ $post->title}}</td>
                                 <td>{{ $post->content}}</td>
-                                <td>Edit</td>
+                                <td>@livewire('edit-post', ['post' => $post], key($post->id))</td>
                             </tr>
                         @endforeach
                         </tbody>
