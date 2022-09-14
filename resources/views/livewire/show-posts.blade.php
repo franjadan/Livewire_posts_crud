@@ -133,9 +133,17 @@
                         </tbody>
                     </table>
                 </div>
-            @else
-                <p>No existe ningún registro que coincida con su búsqueda.</p>
-            @endif
-        </div>
+            </div>
+        @else
+            <p>No existe ningún registro que coincida con su búsqueda.</p>
+        @endif
+
+        <!-- Si tiene al menos 2 páginas muestra el div -->
+        @if($posts->hasPages())
+            <div class="d-flex justify-content-end">
+                {{ $posts->links() }}
+            </div>
+        @endif
+
     </x-card>
 </div>
