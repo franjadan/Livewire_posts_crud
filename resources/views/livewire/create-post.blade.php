@@ -1,5 +1,5 @@
 <div>
-    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#createModal">Crear nuevo post</button>
+    <button type="button" class="btn btn-danger" wire:click="$emit('openModal', 'createModal')">Crear nuevo post</button>
 
     <x-modal>
         <x-slot name="id">createModal</x-slot>
@@ -80,6 +80,10 @@
                 .then(function(editor){
                     editor.model.document.on('change:data', () => {
                         @this.set('content', editor.getData()); //Cada vez que modifiquemos el editor se modifica la propiedad content
+                    });
+
+                    Livewire.on('resetCKEditor', () => {
+                        editor.setData('');
                     });
                 })
                 .catch( error => {

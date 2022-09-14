@@ -48,7 +48,8 @@ class ShowPosts extends Component
     protected $listeners = [
         //'render' => 'render' //Cuando escuche el evento render ejecuta la función render
         'render', //Si el evento y el método tiene el mismo nombre se puede poner solo una vez
-        'delete'
+        'delete',
+        'resetModal'
     ];
 
     public function updated($propertyName){
@@ -107,6 +108,7 @@ class ShowPosts extends Component
         $this->post = $post;
         //Abro el modal una vez cargado el post
         $this->emit('openModal', 'editModal');
+
     }
 
     public function update(){
@@ -138,5 +140,11 @@ class ShowPosts extends Component
 
     public function delete(Post $post){
         $post->delete();
+    }
+
+    public function resetModal(){
+        $this->emit('resetCKEditor');
+        $this->reset(['image', 'identificador']);
+        $this->identificador = rand();
     }
 }

@@ -24,9 +24,11 @@
                         <img class="img-fluid" src="{{ $image->temporaryUrl() }}" alt="">
                     </div>
                 @else
-                    <div class="mb-3">
-                        <img class="img-fluid" src="{{ Storage::url($post->image) }}" alt="">
-                    </div>
+                    @if($post->image)
+                        <div class="mb-3">
+                            <img class="img-fluid" src="{{ Storage::url($post->image) }}" alt="">
+                        </div>
+                    @endif
                 @endif
 
                 <div class="mb-3">
@@ -143,7 +145,7 @@
                                 <td>{{ $item->id}}</td>
                                 <td><img class="img-fluid" src="{{ Storage::url($item->image) }}" alt="" title="" /></td>
                                 <td>{{ $item->title}}</td>
-                                <td>{{ $item->content}}</td>
+                                <td>{!! $item->content !!}</td>
                                 <td>
                                     <div class="d-flex">
                                         <button type="button" wire:click="edit({{ $item }})" class="btn btn-primary"><i class="fas fa-edit"></i></button>
@@ -177,6 +179,10 @@
                 .then(function(editor){
                     editor.model.document.on('change:data', () => {
                         @this.set('post.content', editor.getData()); //Cada vez que modifiquemos el editor se modifica la propiedad content
+                    });
+
+                    Livewire.on('resetCKEditor', () => {
+                        editor.setData(@this.get('post.content'));
                     });
                 })
                 .catch( error => {

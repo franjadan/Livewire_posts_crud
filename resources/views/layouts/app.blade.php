@@ -108,6 +108,7 @@
         });
 
         Livewire.on('openModal', function($id){
+            Livewire.emit('resetModal');
             $("#" + $id).modal('show');
         });
 

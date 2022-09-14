@@ -27,6 +27,11 @@ class CreatePost extends Component
         'image' => 'Imagen'
     ];
 
+    protected $listeners = [
+        'resetModal'
+    ];
+
+
     //Este método se activa cuando se modifique cada propiedad (validación en caliente)
     public function updated($propertyName){
         //Solo valida la propiedad que se está editando
@@ -41,6 +46,13 @@ class CreatePost extends Component
     public function render()
     {
         return view('livewire.create-post');
+    }
+
+    //Limpio el modal lanzando un emit desde js
+    public function resetModal(){
+        $this->emit('resetCKEditor');
+        $this->reset();
+        $this->identificador = rand();
     }
 
     public function save(){
