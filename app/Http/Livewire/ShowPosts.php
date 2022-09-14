@@ -10,17 +10,26 @@ use Livewire\WithPagination;
 
 class ShowPosts extends Component
 {
-
     use WithFileUploads;
     use WithPagination; //Para paginar de forma dinámica
 
     protected $paginationTheme = 'bootstrap';
 
-    public $search;
+    public $search = '';
     public $post;
     public $image, $identificador;
     public $sort = 'id';
     public $direction = 'desc';
+    public $cant = '10';
+
+    //Estas propiedad se pasan por la url
+    //Excepciones para que no aparezcan en la url si no cambia el valor por defecto
+    protected $queryString = [
+        'cant' => ['except' => '10'],
+        'sort' => ['except' => 'id'],
+        'direction' => ['except' => 'desc'],
+        'search' => ['except' => '']
+    ];
 
     protected $rules = [
         'post.title' => ['required', 'max:10'],
@@ -62,7 +71,7 @@ class ShowPosts extends Component
         $posts = Post::where('title', 'like', '%' . $this->search . '%')
         ->orWhere('content', 'like', '%' . $this->search . '%')
         ->orderBy($this->sort, $this->direction)
-        ->paginate(10);
+        ->paginate($this->cant);
 
         return view('livewire.show-posts', compact('posts'))->extends('layouts.app')->section('content'); //Tengo que poner la seccion donde va a ir el contenido ya que si lo pongo directamente en la plantilla del componente no funciona la reactividad
     }

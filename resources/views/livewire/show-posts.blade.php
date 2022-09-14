@@ -65,11 +65,21 @@
     <x-card>
 
         <div class="d-flex justify-content-between">
-            <div class="form-group col-md-6">
+            <div class="col-md-2 d-flex align-items-center">
+                <span>Mostrar</span>
+                <select class="mx-2 form-control" wire:model="cant">
+                    <option value="10">10</option>
+                    <option value="25">25</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                </select>
+                <span>Entradas</span>
+            </div>
+            <div class="col mx-2">
                 <input type="text" placeholder="Escriba que quiere buscar" class="form-control" wire:model="search">
             </div>
 
-            <div>
+            <div class="col-md-2 d-flex justify-content-end">
                 @livewire('create-post')
             </div>
         </div>
@@ -80,7 +90,7 @@
                     <table class="table table-striped">
                         <thead>
                         <tr>
-                            <th scope="col" class="cursor-pointer text-nowrap" wire:click="order('id')">ID
+                            <th scope="col-md-1" class="cursor-pointer" wire:click="order('id')">ID
                                 <!--Sort-->
                                 @if($sort == 'id')
                                     @if($direction == 'asc')

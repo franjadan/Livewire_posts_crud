@@ -20,6 +20,12 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     @livewireStyles
+    <style>
+        .cursor-pointer{
+            cursor:pointer !important;
+        }
+
+    </style>
 </head>
 <body>
     <div id="app">
