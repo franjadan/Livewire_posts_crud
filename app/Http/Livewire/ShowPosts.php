@@ -34,20 +34,27 @@ class ShowPosts extends Component
         'image' => 'Imagen'
     ];
 
+    //Eventos que está escuchando
+    protected $listeners = [
+        //'render' => 'render' //Cuando escuche el evento render ejecuta la función render
+        'render' //Si el evento y el método tiene el mismo nombre se puede poner solo una vez
+    ];
+
     public function updated($propertyName){
         $this->validateOnly($propertyName);
+    }
+
+    //Se ejecuta únicamente cuando cambiemos el valor de la propiedad search
+    public function updatingSearch(){
+        //Resetea la paginación para que no de problemas al buscar con paginación
+        //Se elimina la información de la página
+        $this->resetPage();
     }
 
     public function mount(){
         $this->identificador = rand();
         $this->post = new Post();
     }
-
-    //Eventos que está escuchando
-    protected $listeners = [
-        //'render' => 'render' //Cuando escuche el evento render ejecuta la función render
-        'render' //Si el evento y el método tiene el mismo nombre se puede poner solo una vez
-    ];
 
     public function render()
     {
