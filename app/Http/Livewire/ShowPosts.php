@@ -4,13 +4,40 @@ namespace App\Http\Livewire;
 
 use Livewire\Component;
 use App\Models\Post;
+use Livewire\WithFileUploads;
+use Illuminate\Support\Facades\Storage;
 
 class ShowPosts extends Component
 {
 
+    use WithFileUploads;
+
     public $search;
+    public $post;
+    public $image, $identificador;
     public $sort = 'id';
     public $direction = 'desc';
+
+    protected $rules = [
+        'post.title' => ['required', 'max:10'],
+        'post.content' => ['required', 'min:10'],
+        'image' => ['nullable', 'sometimes', 'image', 'mimes:jpeg,png,jpg', 'max:2048']
+    ];
+
+    protected $validationAttributes = [
+        'post.title' => 'Título',
+        'post.content' => 'Contenido',
+        'image' => 'Imagen'
+    ];
+
+    public function updated($propertyName){
+        $this->validateOnly($propertyName);
+    }
+
+    public function mount(){
+        $this->identificador = rand();
+        $this->post = new Post();
+    }
 
     //Eventos que está escuchando
     protected $listeners = [
@@ -41,5 +68,32 @@ class ShowPosts extends Component
             $this->sort = $sort;
             $this->direction = 'asc';
         }
+    }
+
+    public function edit(Post $post){
+        $this->post = $post;
+    }
+
+    public function update(){
+        $this->validate();
+
+        //Si se ha añadido una imagen
+        if($this->image){
+            //Elimino la imagen anterior
+            Storage::delete($this->post->image);
+            $this->post->image = $this->image->store('posts'); //Actualizo la propiedad del post con la nueva imagen
+        }
+
+        //Actualizo el post
+        $this->post->save();
+
+        $this->reset(['image', 'identificador']);
+
+        $this->identificador = rand();
+
+        $this->dispatchBrowserEvent('closeModal');
+
+        $this->emitTo('show-posts', 'render');
+        $this->emit('alert', 'El post se actualizó correctamente');
     }
 }

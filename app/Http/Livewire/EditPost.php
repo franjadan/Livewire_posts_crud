@@ -17,7 +17,7 @@ class EditPost extends Component
     protected $rules = [
         'post.title' => ['required', 'max:10'],
         'post.content' => ['required', 'min:10'],
-        'image' => ['sometimes', 'image', 'mimes:jpeg,png,jpg', 'max:2048']
+        'image' => ['nullable', 'sometimes', 'image', 'mimes:jpeg,png,jpg', 'max:2048']
     ];
 
     protected $validationAttributes = [
@@ -28,11 +28,11 @@ class EditPost extends Component
 
     public function updated($propertyName){
         $this->validateOnly($propertyName);
-        $this->identificador = rand();
     }
 
     public function mount(Post $post){
         $this->post = $post;
+        $this->identificador = rand();
     }
 
     public function render()
@@ -61,6 +61,6 @@ class EditPost extends Component
         $this->dispatchBrowserEvent('closeModal');
 
         $this->emitTo('show-posts', 'render');
-        $this->emitTo('alert', 'El post se actualizó correctamente');
+        $this->emit('alert', 'El post se actualizó correctamente');
     }
 }

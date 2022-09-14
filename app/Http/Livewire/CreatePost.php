@@ -71,6 +71,6 @@ class CreatePost extends Component
         //Una vez emitido tiene que escucharlo alguien
         $this->emitTo('show-posts', 'render'); //Sin el To lo emite a todos los componentes
 
-        $this->emitTo('alert', 'El post se creó correctamente');
+        $this->emit('alert', 'El post se creó correctamente');
     }
 }
